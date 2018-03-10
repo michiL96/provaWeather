@@ -13,6 +13,6 @@ app.post('/assistente', function(req, res, next) {
   res.sendStatus(200);
 });
 
-app.get('/', function(req, res, next) {
+app.get('/assistente', function(req, res, next) {
   res.send(listaReq);
 });
