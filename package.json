@@ -1,0 +1,26 @@
+{
+  "name": "provaWeather",
+  "version": "1.0.0",
+  "description": "",
+  "main": "",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "Michela Lorandi",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "dotenv": "^4.0.0",
+    "express": "^4.16.2",
+    "minimatch": "^3.0.4",
+    "tern-node-express": "^0.4.0",
+    "uuid": "^3.1.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "jest": "^21.2.1",
+    "superagent": "^3.8.2",
+    "supertest": "^3.0.0"
+  }
+}
