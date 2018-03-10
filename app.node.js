@@ -20,12 +20,13 @@ app.use(bodyParser.json());
 
 var listaReq = [];
 
-app.post('/assistente', function(req, res, next) {
-  listaReq.push(req);
+app.post('/assistente/', function(req, res, next) {
+  console.log(req.body);
+  listaReq.push(req.body);
   res.sendStatus(200);
 });
 
-app.get('/assistente', function(req, res, next) {
+app.get('/assistente/', function(req, res, next) {
   res.send(listaReq);
 });
 
