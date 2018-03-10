@@ -16,3 +16,5 @@ app.post('/assistente', function(req, res, next) {
 app.get('/assistente', function(req, res, next) {
   res.send(listaReq);
 });
+
+module.exports = app;
