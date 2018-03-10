@@ -21,9 +21,11 @@ app.use(bodyParser.json());
 var listaReq = [];
 
 app.post('/assistente/', function(req, res, next) {
-  console.log(req.body);
+  //console.log(req.body);
   listaReq.push(req.body);
-  res.sendStatus(200);
+  //res.sendStatus(200);
+  res.setHeader('Content-Type', 'application/json');
+  res.send(JSON.stringify({ 'speech': 'sono nel meteo', 'displayText': 'sono nel meteo' }));
 });
 
 app.get('/assistente/', function(req, res, next) {
