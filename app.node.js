@@ -23,9 +23,22 @@ var listaReq = [];
 app.post('/assistente/', function(req, res, next) {
   //console.log(req.body);
   listaReq.push(req.body);
+
+  var action = req.body.result.action;
+  var parametri = req.body.result.parameters;
+
+  console.log(action);
+  console.log(parametri);
+
+  if (action === 'getmeacabConfirmation'){
+    res.setHeader('Content-Type', 'application/json');
+    res.send(JSON.stringify({ 'speech': 'sono nel confirm cab', 'displayText': 'sono nel confirm cab' }));
+  } else {
+    res.setHeader('Content-Type', 'application/json');
+    res.send(JSON.stringify({ 'speech': 'sono nel meteo', 'displayText': 'sono nel meteo' }));
+  }
+  
   //res.sendStatus(200);
-  res.setHeader('Content-Type', 'application/json');
-  res.send(JSON.stringify({ 'speech': 'sono nel meteo', 'displayText': 'sono nel meteo' }));
 });
 
 app.get('/assistente/', function(req, res, next) {
