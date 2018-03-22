@@ -20,6 +20,9 @@ app.use(bodyParser.json());
 
 var listaReq = [];
 
+//Istanza per api meteo di yahoo
+var YQL = require('yql');
+
 app.post('/assistente/', function(req, res, next) {
   //console.log(req.body);
   listaReq.push(req.body);
@@ -33,11 +36,20 @@ app.post('/assistente/', function(req, res, next) {
   if (action === 'getmeacabConfirmation'){
     res.setHeader('Content-Type', 'application/json');
     res.send(JSON.stringify({ 'speech': 'sono nel confirm cab', 'displayText': 'sono nel confirm cab' }));
-  } else {
-    res.setHeader('Content-Type', 'application/json');
-    res.send(JSON.stringify({ 'speech': 'sono nel meteo', 'displayText': 'sono nel meteo' }));
+  } else if (action === 'yahooWeatherForecast'){
+
+    var query = new YQL('select * from weather.forecast where woeid in (select woeid from geo.places(1) where text="'+parametri.geo_city+'")');
+
+    query.exec(function(err, data) {
+      var location = data.query.results.channel.location;
+      var condition = data.query.results.channel.item.condition;
+      console.log('The current weather in ' + location.city + ', ' + location.region + ' is ' + condition.temp + ' degrees.');
+
+      res.setHeader('Content-Type', 'application/json');
+      res.send(JSON.stringify({ 'speech': 'The current weather in ' + location.city + ', ' + location.region + ' is ' + condition.temp + ' degrees', 'displayText': 'The current weather in ' + location.city + ', ' + location.region + ' is ' + condition.temp + ' degrees' }));
+    });
   }
-  
+
   //res.sendStatus(200);
 });
 
