@@ -29,11 +29,19 @@ app.post('/assistente/', function(req, res, next) {
 
   var action = req.body.result.action;
   var parametri = req.body.result.parameters;
+  var lingua = req.body.lang;
 
   console.log(action);
   console.log(parametri);
 
   if (action === 'getmeacabConfirmation'){
+
+    if (lingua === "en"){
+      risposta = 'Get a cab near ' + location.city + ', ' + location.region + ' is ' + condition.temp + ' degrees F.';
+    } else if (lingua === 'it') {
+      risposta = 'Cerco un taxi vicino a ' + location.city + ', ' + location.street-address + '.';
+    }
+
     res.setHeader('Content-Type', 'application/json');
     res.send(JSON.stringify({ 'speech': 'sono nel confirm cab', 'displayText': 'sono nel confirm cab' }));
   } else if (action === 'yahooWeatherForecast'){
@@ -43,10 +51,17 @@ app.post('/assistente/', function(req, res, next) {
     query.exec(function(err, data) {
       var location = data.query.results.channel.location;
       var condition = data.query.results.channel.item.condition;
-      console.log('The current weather in ' + location.city + ', ' + location.region + ' is ' + condition.temp + ' degrees.');
+      var risposta = "";
+
+      if (lingua === "en"){
+        risposta = 'The current weather in ' + location.city + ', ' + location.region + ' is ' + condition.temp + ' degrees F.';
+      } else if (lingua === 'it') {
+        risposta = 'Attualmente il tempo a ' + location.city + ', ' + location.region + ' è di ' + condition.temp + ' gradi F.';
+      }
+      console.log(risposta);
 
       res.setHeader('Content-Type', 'application/json');
-      res.send(JSON.stringify({ 'speech': 'The current weather in ' + location.city + ', ' + location.region + ' is ' + condition.temp + ' degrees', 'displayText': 'The current weather in ' + location.city + ', ' + location.region + ' is ' + condition.temp + ' degrees' }));
+      res.send(JSON.stringify({ 'speech': risposta, 'displayText': risposta }));
     });
   }
 
