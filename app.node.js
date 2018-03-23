@@ -39,7 +39,7 @@ app.post('/assistente/', function(req, res, next) {
     if (lingua === "en"){
       risposta = 'Get a cab near ' + location.city + ', ' + location.region + ' is ' + condition.temp + ' degrees F.';
     } else if (lingua === 'it') {
-      risposta = 'Cerco un taxi vicino a ' + location.city + ', ' + location.street-address + '.';
+      risposta = 'Cerco un taxi vicino a ' + location.city + ', ' + location.street_address + '.';
     }
 
     res.setHeader('Content-Type', 'application/json');
