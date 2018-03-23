@@ -35,15 +35,17 @@ app.post('/assistente/', function(req, res, next) {
   console.log(parametri);
 
   if (action === 'getmeacabConfirmation'){
+    var risposta = '';
 
     if (lingua === "en"){
-      risposta = 'Get a cab near ' + location.city + ', ' + location.region + ' is ' + condition.temp + ' degrees F.';
+      risposta = 'Get a cab near ' + parametri.street_address + ', ' + parametri.geo_city + '.';
     } else if (lingua === 'it') {
-      risposta = 'Cerco un taxi vicino a ' + location.city + ', ' + location.street_address + '.';
+      risposta = 'Cerco un taxi vicino a ' + parametri.street_address + ', ' + parametri.geo_city + '.';
     }
 
     res.setHeader('Content-Type', 'application/json');
-    res.send(JSON.stringify({ 'speech': 'sono nel confirm cab', 'displayText': 'sono nel confirm cab' }));
+    res.send(JSON.stringify({ 'speech': risposta, 'displayText': risposta }));
+
   } else if (action === 'yahooWeatherForecast'){
 
     var query = new YQL('select * from weather.forecast where woeid in (select woeid from geo.places(1) where text="'+parametri.geo_city+'")');
